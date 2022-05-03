@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art 151 - Project 3</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Amatic+SC" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="backgroundImage">
+            <img class="backgroundImageHolder" src="https://pic.pngbag.com/00/39/92/fbad02431192222f.jpg">
+            <div class="top-left" onclick="location.href='../index.html'">Home</div>
+            <div class="top-right" onclick="location.href='./musicPlayer.html'">Music Player</div>
+            <div class="centered" id="mainCenter">
+                <div class="form" id="form2">
+                    <div class="title">Create Your AI Art</div>
+                    <div class="subtitle">Let's Start Get Creating!</div>
+                    <div class="prompt">Type anything for keyword</div>
+                    <div class="input-container ic2">
+                      <input id="Keywords" class="input" type="text" placeholder=" " />
+                      <div class="cut"></div>
+                      <label for="Keywords" class="placeholder">Keywords</label>
+                    </div>
+                    <div class="prompt-2">Choose Random, FantasyArt, or Mystical for Style</div>
+                    <div class="input-container ic2">
+                      <input id="style" class="input" type="text" placeholder=" " />
+                      <div class="cut cut-short"></div>
+                      <label for="style" class="placeholder">Style</>
+                    </div>
+                    <button type="text" class="playButton" onclick="submitGen()">Submit</button>
+                  </div>
+
+            </div>
+
+           
+        </div>
+    </div>
+    </div>
+</body>
+
+<script>
+    async function submitGen(){
+        const base_url = "http://66.11.119.83:8298/"
+
+        var kw = document.getElementById("Keywords").value;
+        var style = document.getElementById("style").value;
+        var taskId = '';
+        var genArt = false;
+        alert("Please Waiting for 3-5 Seconds. There will be a Second Alert");
+
+        jQuery.ajax({
+            url:`${base_url}createTask`,
+            type:'GET',
+            async:false,
+            crossDomain:true,
+            complete: function(response) {
+                if(response.status === 200 && response.readyState === 4){
+                    taskId = response.responseJSON.id
+                }else{
+                    console.log(response.status)
+                }
+            }
+        });
+        if(taskId != ''){
+            jQuery.ajax({
+                url:`${base_url}createArt?taskId=${taskId}&keyword=${kw}&mode=${style}`,
+                type:'GET',
+                async:false,
+                crossDomain:true,
+                complete: function(response) {
+                    if(response.status === 200 && response.readyState === 4){
+                        genArt = true;
+                    }else{
+                        console.log(response.status)
+                    }
+                }
+            });
+        };
+        alert("Please Waiting For API To Generate Images Please Wait for 2-5 Seconds, If waiting Alert pop up please click Wait");
+        if(genArt == true){
+            jQuery.ajax({
+                url:`${base_url}getArt?taskId=${taskId}`,
+                type:'GET',
+                async:false,
+                crossDomain:true,
+                complete: function(response) {
+                    if(response.status === 200 && response.readyState === 4){
+                        var pic = (response.responseJSON.photo_url_list[response.responseJSON.photo_url_list.length - 1]);
+                        var div = document.getElementById("form2");
+                        div.parentNode.removeChild(div);
+                        var imageForm = document.createElement("div");
+                        imageForm.setAttribute("class","form");
+                        var titleEle = document.createElement("div");
+                        titleEle.setAttribute("class","title");
+                        titleEle.innerHTML = "Your Art";
+                        imageForm.appendChild(titleEle);
+                        var imageTag = document.createElement("img");
+                        imageTag.setAttribute("src",pic);
+                        imageTag.setAttribute("width",280);
+                        imageTag.setAttribute("height",350);
+                        imageForm.appendChild(imageTag);
+                        // <button type="text" class="playButton" onclick="submitGen()">Submit</button>
+
+                        var restartButton = document.createElement("button");
+                        restartButton.setAttribute("type","text");
+                        restartButton.setAttribute("class","playButton");
+                        restartButton.setAttribute("onclick","location.href='./artGen.html'");
+                        restartButton.innerHTML = "Restart";
+                        imageForm.appendChild(restartButton);
+
+
+                        var maindiv = document.getElementById("mainCenter");
+                        maindiv.appendChild(imageForm);
+                    }else{
+                        console.log(response.status)
+                    }
+                }
+            });
+        }
+
+
+
+
+    }
+</script>
+
+<link rel="stylesheet" href="https://cdn-cms-s.f-static.net/versions/2/css/minimize_main.css?v=n81867" type="text/css"
+    crossorigin="anonymous">
+<link rel="stylesheet"
+    href="https://cdn-cms-s.f-static.net/versions/2/css/websiteCSS.css?w=&amp;orderScreen=&amp;websiteID=6221107&amp;onlyContent=&amp;tranW=&amp;v=css_n152_32938906"
+    class="reloadable-css" type="text/css">
+
+
+
+</html>

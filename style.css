@@ -1,0 +1,95 @@
+.backgroundImageHolder {
+    opacity: 0.3;
+    transform: translate3d(0px, 0px, 0px);
+    width: 1280px;
+    height: 1024px;
+
+    max-width: none;
+}
+
+.backgroundImage {
+
+    background-color: rgb(0, 0, 0);
+    transform: translate3d(0px, 0px, 0px);
+    width: 1280px;
+    height: 1024px;
+
+}
+
+.container {
+    position: center;
+    text-align: center;
+    color: white;
+}
+
+/* Top left text */
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+/* Top right text */
+.top-right {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+}
+
+
+
+/* Centered text */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.centerText {
+    font-family: "Amatic SC";
+    font-size: 110px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 800;
+}
+
+
+.top-left {
+    font-family: "Cabin Sketch";
+    font-size: 50px;
+    font-style: normal;
+    font-variant: normal;
+}
+
+
+.top-right {
+    font-family: "Cabin Sketch";
+    font-size: 50px;
+    font-style: normal;
+    font-variant: normal;
+}
+
+.playButton {
+    display: inline-block;
+    padding: 15px 25px;
+    width: 170px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4860b8;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+  }
+
+.playButton:hover {background-color: #91a8ae}
+
+.playButton:active {
+  background-color: #91aaac;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}

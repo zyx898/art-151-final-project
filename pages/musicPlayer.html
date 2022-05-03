@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art 151 - Project 3</title>
+    <script src="./app.js"></script>
+    <script src="./musicPlayer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Amatic+SC" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./musicPlayer.css">
+
+</head>
+<!-- <iframe src="" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/summer-ocean-sunshine-HIxDEpzVaGPkrMYHJn">via GIPHY</a></p> -->
+<body>
+    <div class="container">
+        <div class="backgroundImage">
+            <img class="backgroundImageHolder" id="bgImage">
+                <!-- src="https://media0.giphy.com/media/L0KYAjUe6QX0PDMQWR/giphy.gif?cid=ecf05e47xgu70olbtm2z2ehqd3ixiefrhdu7v04e9yykblm8&rid=giphy.gif&ct=g"> -->
+            <div class="top-left" onclick="location.href='../index.html'">Home</div>
+            <div class="centered" id = "centerTxt">
+                <h1 class="centerText" id="typedtext">
+                     
+                </h1>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<link rel="stylesheet" href="https://cdn-cms-s.f-static.net/versions/2/css/minimize_main.css?v=n81867" type="text/css"
+    crossorigin="anonymous">
+<link rel="stylesheet"
+    href="https://cdn-cms-s.f-static.net/versions/2/css/websiteCSS.css?w=&amp;orderScreen=&amp;websiteID=6221107&amp;onlyContent=&amp;tranW=&amp;v=css_n152_32938906"
+    class="reloadable-css" type="text/css">
+
+<script>
+    var aText = new Array(
+    " Please Press Any Key", 
+    " on Your Launch Pad ",
+    " to Play or Pause ",
+    " Music."
+    );
+    var iSpeed = 50;
+    var iIndex = 0;
+    var iArrLength = aText[0].length; 
+    var iScrollAt = 20; 
+    
+    var iTextPos = 0;
+    var sContents = '';
+    var iRow;
+    
+    function typewriter()
+    {
+    sContents =  ' ';
+    iRow = Math.max(0, iIndex-iScrollAt);
+    var destination = document.getElementById("typedtext");
+    
+    while ( iRow < iIndex ) {
+    sContents += aText[iRow++] + '<br />';
+    }
+    destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "_";
+    if ( iTextPos++ == iArrLength ) {
+    iTextPos = 0;
+    iIndex++;
+    if ( iIndex != aText.length ) {
+    iArrLength = aText[iIndex].length;
+    setTimeout("typewriter()", 500);
+    }
+    } else {
+    setTimeout("typewriter()", iSpeed);
+    }
+    }
+
+
+    typewriter();
+</script>
+
+</html>
